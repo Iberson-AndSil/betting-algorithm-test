@@ -44,8 +44,6 @@ let bets = [];
 let idbet = 1;
 
 function Bet(games, teams, pay) {
-    // console.log(plays);
-
     let revenue = 1;
     let arrteams = [];
     let c = 0;
@@ -57,7 +55,7 @@ function Bet(games, teams, pay) {
             for (const game of games) {
                 revenue *= plays[game].teams[teams[c]].pay;
 
-                if (plays[game].teams[teams[c]].quota!=false) {
+                if (plays[game].teams[teams[c]].quota != false) {
                     arrteams.push(
                         {
                             game: plays[game].game,
@@ -65,8 +63,8 @@ function Bet(games, teams, pay) {
                             quota: plays[game].teams[teams[c]].quota
                         }
                     )
-                }else{
-                    console.log("la cuota de "+ plays[game].teams[teams[c]].name+" cerró");
+                } else {
+                    console.log("la cuota de " + plays[game].teams[teams[c]].name + " cerró");
                 }
                 c++;
             }
@@ -116,7 +114,6 @@ function quotaClose(id_Play, id_Quota) {
                 for (const team of play.teams) {
                     if (team.id == id_Quota) {
                         team.quota = false;
-                        // this.plays[id_Play].teams[id_Quota].quota = false;
                         return team.quota;
                     }
                 }
@@ -127,25 +124,31 @@ function quotaClose(id_Play, id_Quota) {
     }
 }
 
-function closPlay(id_Play){
-    for (const play in plays) {
-        // console.log(play);
-        
-        if (plays[play].idPlays == id_Play) {
-            plays[play].state=false;
-            return plays[play].state;            
+function closePlay(id_Play) {
+    try {
+        if (id_Play>=0) {
+            for (const play in plays) {
+                if (plays[play].idPlays == id_Play) {
+                    plays[play].state = false;
+                    return plays[play].state;
+                }
+            }
+        }else{
+            console.log("ingresa un número válido");
         }
+    } catch (error) {
+        console.log("ingresa un valor numérico");
     }
 }
 
-console.log(closPlay(id_Play=1));
+//se digita el id del partido
+console.log(closePlay(id_Play = 1));
 
-
-//se digita el id de la cuota
+//se digita el id del partido y de la cuota
 console.log(quotaClose(id_Play = 1, id_Quota = 1));
 
-//aaceptar bets simples y combinadas
-//plays, teams, bet
+//aaceptar apuestas simples y combinadas
+//partidos, grupos, pago
 console.log(Bet(games = [0, 1], teams = [0, 1], bet = 20));
 
 // console.log(plays);
