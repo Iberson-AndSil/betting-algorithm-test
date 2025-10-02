@@ -1,5 +1,6 @@
 let plays = [{
     idPlays: 0,
+    state: true,
     game: "RM vs. Barcelona",
     teams: [
         { id: 0, name: "RM", pay: 2.4, quota: true },
@@ -9,6 +10,7 @@ let plays = [{
 },
 {
     idPlays: 1,
+    state: true,
     game: "RM vs. Valencia",
     teams: [
         { id: 0, name: "RM", pay: 1.8, quota: true },
@@ -18,6 +20,7 @@ let plays = [{
 },
 {
     idPlays: 2,
+    state: true,
     game: "RM vs Atletico",
     teams: [
         { id: 0, name: "RM", pay: 2.0, quota: true },
@@ -27,6 +30,7 @@ let plays = [{
 },
 {
     idPlays: 3,
+    state: true,
     game: "Barcelona - Valencia",
     teams: [
         { id: 0, name: "Barcelona", pay: 2.1, quota: true },
@@ -41,7 +45,6 @@ let idbet = 1;
 
 function Bet(games, teams, pay) {
     // console.log(plays);
-
 
     let revenue = 1;
     let arrteams = [];
@@ -112,7 +115,6 @@ function quotaClose(id_Play, id_Quota) {
             if (play.idPlays == id_Play) {
                 for (const team of play.teams) {
                     if (team.id == id_Quota) {
-                        // console.log(team.quota);
                         team.quota = false;
                         // this.plays[id_Play].teams[id_Quota].quota = false;
                         return team.quota;
@@ -124,6 +126,20 @@ function quotaClose(id_Play, id_Quota) {
         console.log("entrada no válida");
     }
 }
+
+function closPlay(id_Play){
+    for (const play in plays) {
+        // console.log(play);
+        
+        if (plays[play].idPlays == id_Play) {
+            plays[play].state=false;
+            return plays[play].state;            
+        }
+    }
+}
+
+console.log(closPlay(id_Play=1));
+
 
 //se digita el id de la cuota
 console.log(quotaClose(id_Play = 1, id_Quota = 1));
