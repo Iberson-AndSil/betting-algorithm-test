@@ -74,7 +74,7 @@ function Bet(games, teams, pay) {
                         console.log("no se permite realizar la apuesta porque está cerado");
                     }
                 }
-    
+                
                 revenue = revenue * pay;
                 revenueNeta = revenue - pay;
                 revenuePorc = ((pay / teams.length) * 100).toFixed(2)
@@ -113,7 +113,6 @@ function Bet(games, teams, pay) {
     } catch (error) {
         console.log("entrada no válida...");
     }
-
 }
 
 function quotaClose(id_Play, id_Quota) {
@@ -157,7 +156,7 @@ function closePlay(id_Play) {
 
 //aaceptar apuestas simples y combinadas
 //partidos, grupos, pago
-console.log(Bet(games = [10], teams = [1], bet = 20));
+console.log(Bet(games = [1,0,2], teams = [1,1,1], bet = 20));
 
 //se digita el id del partido
 // console.log(closePlay(id_Play = 0));
