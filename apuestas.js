@@ -49,57 +49,62 @@ function Bet(games, teams, pay) {
     let c = 0;
 
     try {
-        if (games < 0 || teams < 0 || pay < 0) {
-            console.log("entrada no válida");
-        } else {
-            for (const game of games) {
-                revenue *= plays[game].teams[teams[c]].pay;
-
-                if (plays[game].teams[teams[c]].quota != false) {
-                    arrteams.push(
-                        {
-                            game: plays[game].game,
-                            teams: plays[game].teams[teams[c]].name,
-                            quota: plays[game].teams[teams[c]].quota
-                        }
-                    )
-                } else {
-                    console.log("la cuota de " + plays[game].teams[teams[c]].name + " cerró");
-                }
-                c++;
-            }
-
-            revenue = revenue * pay;
-            revenueNeta = revenue - pay;
-            revenuePorc = (pay / 3) * 100
-            revenuePorc = revenuePorc.toFixed(2)
-
-            if (games.length < 2) {
-                bets.push({
-                    id: idbet++,
-                    state: true,
-                    typeBet: "simple",
-                    teams: arrteams,
-                    pay: pay,
-                    revenuePotencial: revenue,
-                    revenueNeta: revenueNeta,
-                    revenuePorc: revenuePorc
-                })
-                return bets;
+        if (games.length == teams.length) {
+            if (games < 0 || teams < 0 || pay < 0) {
+                console.log("entrada no válida");
             } else {
-                bets.push({
-                    id: idbet++,
-                    state: true,
-                    typeBet: "combinada",
-                    teams: arrteams,
-                    pay: pay,
-                    revenuePotencial: revenue,
-                    revenueNeta: revenueNeta,
-                    revenuePorc: revenuePorc
-                })
-                revenue = 0;
-                return bets;
+                for (const game of games) {
+                    revenue *= plays[game].teams[teams[c]].pay;
+    
+                    if (plays[game].teams[teams[c]].quota != false) {
+                        arrteams.push(
+                            {
+                                game: plays[game].game,
+                                teams: plays[game].teams[teams[c]].name,
+                                quota: plays[game].teams[teams[c]].quota
+                            }
+                        )
+                    } else {
+                        console.log("la cuota de " + plays[game].teams[teams[c]].name + " cerró, no puedes apostar en ese partido " + plays[game].game);
+                    }
+                    c++;
+                }
+    
+                revenue = revenue * pay;
+                revenueNeta = revenue - pay;
+                revenuePorc = (pay / 3) * 100
+                revenuePorc = revenuePorc.toFixed(2)
+    
+                if (games.length < 2) {
+                    bets.push({
+                        id: idbet++,
+                        state: true,
+                        typeBet: "simple",
+                        teams: arrteams,
+                        pay: pay,
+                        revenuePotencial: revenue,
+                        revenueNeta: revenueNeta,
+                        revenuePorc: revenuePorc
+                    })
+                    return bets;
+                } else {
+                    bets.push({
+                        id: idbet++,
+                        state: true,
+                        typeBet: "combinada",
+                        teams: arrteams,
+                        pay: pay,
+                        revenuePotencial: revenue,
+                        revenueNeta: revenueNeta,
+                        revenuePorc: revenuePorc
+                    })
+                    revenue = 0;
+                    return bets;
+                }
             }
+        }else{
+            console.log("por favor ingresa los valores completos");
+            
         }
     } catch (error) {
         console.log("entrada no válida...");
@@ -141,14 +146,13 @@ function closePlay(id_Play) {
     }
 }
 
-//se digita el id del partido
-console.log(closePlay(id_Play = 1));
 
 //se digita el id del partido y de la cuota
-console.log(quotaClose(id_Play = 1, id_Quota = 1));
+console.log(quotaClose(id_Play = 0, id_Quota = 0));
 
 //aaceptar apuestas simples y combinadas
 //partidos, grupos, pago
 console.log(Bet(games = [0, 1], teams = [0, 1], bet = 20));
 
-// console.log(plays);
+//se digita el id del partido
+console.log(closePlay(id_Play = 1));
